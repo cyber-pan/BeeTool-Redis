@@ -69,7 +69,7 @@ public class FastJson2JsonRedisParamSerializer<T> implements RedisSerializer<T> 
             return null;
         }
         String str = new String(bytes, DEFAULT_CHARSET);
-        if (str.startsWith("{") || str.startsWith("[")) {
+        if (clazz != null) {
             return JSON.parseObject(str, clazz);
         }
         return (T) str;

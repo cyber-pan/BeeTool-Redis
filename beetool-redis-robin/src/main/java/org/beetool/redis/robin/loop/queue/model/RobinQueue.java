@@ -54,17 +54,9 @@ public abstract class RobinQueue<T> extends RobinConnector<T> {
      */
     public abstract T pop();
 
-    /**
-     * 获取的T
-     *
-     * @return
-     */
-    public Class<T> getTClass() {
-        return (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-    }
 
     public T executeScript(List<String> keys, String path, Object... args) {
-        return getRedisTemplate().execute(getDefaultRedisScript(path), new FastJson2JsonRedisParamSerializer(Object.class),
+        return getRedisTemplate().execute(getDefaultRedisScript(path), new FastJson2JsonRedisParamSerializer(),
                 (RedisSerializer<T>) super.getRedisTemplate().getValueSerializer(), keys, args);
     }
 

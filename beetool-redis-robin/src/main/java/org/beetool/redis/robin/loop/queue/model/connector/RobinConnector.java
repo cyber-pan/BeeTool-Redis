@@ -8,6 +8,8 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import java.lang.reflect.ParameterizedType;
+
 /**
  * @author cyber.pan
  * @Classname RobinConnector
@@ -30,11 +32,15 @@ public abstract class RobinConnector<T> {
         //把工厂设置给Template
         redisTemplate.setConnectionFactory(factory);
         redisTemplate.setKeySerializer(new StringRedisSerializer());
-        this.setValueSerializers(new FastJson2JsonRedisParamSerializer(Object.class));
+        this.setValueSerializers(new FastJson2JsonRedisParamSerializer<T>(getTClass()));
     }
 
     public void setValueSerializers(RedisSerializer valueSerializer) {
         redisTemplate.setValueSerializer(valueSerializer);
         redisTemplate.afterPropertiesSet();
+    }
+
+    public Class<T> getTClass() {
+        return (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 }
