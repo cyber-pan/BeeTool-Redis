@@ -15,7 +15,7 @@
 	<groupId>org.beetool.redis</groupId>
 	<artifactId>beetool-redis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Beetool-Redis</name>
+	<name>beetool-redis</name>
 	<description>redis biz tools</description>
 	<properties>
 		<java.version>8</java.version>
