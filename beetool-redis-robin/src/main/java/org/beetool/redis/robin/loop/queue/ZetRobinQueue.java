@@ -19,7 +19,7 @@ public class ZetRobinQueue<T> extends RobinQueue<T> {
 
     ZSetOperations<String, T> zSetOperations;
 
-    public ZetRobinQueue(String name,  RedisConnectionFactory factory) {
+    public ZetRobinQueue(String name, RedisConnectionFactory factory) {
         super(name, factory);
         this.zSetOperations = super.getRedisTemplate().opsForZSet();
     }
