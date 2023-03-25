@@ -30,10 +30,10 @@ public class AppTest {
     @Test
     public void shouldAnswerWithTrue() {
         RobinLongLoop robinLongLoop = new RobinLongLoop("name", factory);
-        robinLongLoop.add(1L, 2);
+        robinLongLoop.add(1L, 2D);
         robinLongLoop.incrScore(1L, 1D);
         Double score = robinLongLoop.getScore(1L);
-        robinLongLoop.add(1L, 1);
+        robinLongLoop.add(1L, 1D);
         Long ley = robinLongLoop.pop();
         System.out.println();
 
@@ -68,6 +68,10 @@ public class AppTest {
         loop.add(999, 80D);
         Integer result = loop.peekMax();
         result = loop.peekMaxIncrDelta(1.0D);
+        Double score = loop.addScoreWithLimitScore(999,3.0D,90.0D);
+         score = loop.addScoreWithLimitScore(999,89.0D,90.0D);
+
+
         result = loop.peekMax();
         System.out.println();
     }

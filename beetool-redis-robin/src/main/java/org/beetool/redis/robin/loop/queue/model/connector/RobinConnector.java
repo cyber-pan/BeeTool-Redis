@@ -4,7 +4,6 @@ import lombok.Getter;
 import org.beetool.redis.robin.loop.queue.model.connector.serializer.FastJson2JsonRedisParamSerializer;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -13,8 +12,16 @@ import java.lang.reflect.ParameterizedType;
 /**
  * @author cyber.pan
  * @Classname RobinConnector
- * @Description \
+ * @Description
  * @Date 2023/3/25 20:50
+ *
+ * @since 1.0
+ * redis连接器，这个地方redisTemplate的配置由核心类把控，不开放給外部
+ * 原因：redis的各种序列化的方式很多，key，value，以及脚本里面的argv也
+ * 需要序列化，有一个地方有问题的话，有一致性风险，此处redis的key用StringRedisSerializer，
+ * value，以及脚本里面的arg用自己提供的FastJson2JsonRedisParamSerializer：基于fastjson
+ * 的序列化
+ *
  */
 
 public abstract class RobinConnector<T> {

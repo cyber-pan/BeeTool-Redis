@@ -15,12 +15,19 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 
 /**
- * 脚本参数序列化工具
+ * 基于fastjson的序列化
+ * 目前redis的序列化地方大致有四个地方：
+ * 1.key的序列化；
+ * 2.value的序列化；
+ * 3.luna脚本函数里面参数的序列化；
  *
+ * 反序列化有两个地方：
+ * 1.value的反序列化；
+ * 2.luna脚本执行结果的序列化；
  * @param <T>
  */
 public class FastJson2JsonRedisParamSerializer<T> implements RedisSerializer<T> {
-    @SuppressWarnings("unused")
+
     private ObjectMapper objectMapper = new ObjectMapper();
 
     public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
@@ -35,7 +42,9 @@ public class FastJson2JsonRedisParamSerializer<T> implements RedisSerializer<T> 
         ParserConfig.getGlobalInstance().setAsmEnable(true);
     }
 
-
+    /**
+     * 没有clazz时，反序列化，反序列化是失效的
+     */
     public FastJson2JsonRedisParamSerializer() {
         super();
     }
