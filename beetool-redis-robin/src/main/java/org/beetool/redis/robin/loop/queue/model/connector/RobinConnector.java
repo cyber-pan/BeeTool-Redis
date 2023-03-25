@@ -40,6 +40,10 @@ public abstract class RobinConnector<T> {
         redisTemplate.afterPropertiesSet();
     }
 
+    /**
+     * 获取T的class
+     * @return
+     */
     public Class<T> getTClass() {
         return (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }

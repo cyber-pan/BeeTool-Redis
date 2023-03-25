@@ -13,7 +13,7 @@ import java.util.Map;
  * @Description
  * @Date 2023/3/24 17:50
  */
-public class RedisHashObject<T, K> extends RobinConnector<T> {
+public abstract class RedisHashObject<T, K> extends RobinConnector<T> {
 
     @Getter
     private String name;

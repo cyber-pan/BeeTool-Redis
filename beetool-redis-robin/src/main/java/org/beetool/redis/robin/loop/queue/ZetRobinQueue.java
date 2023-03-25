@@ -14,7 +14,7 @@ import java.util.Optional;
  * @Description
  * @Date 2023/3/24 17:24
  */
-public class ZetRobinQueue<T> extends RobinQueue<T> {
+public abstract class ZetRobinQueue<T> extends RobinQueue<T> {
 
 
     ZSetOperations<String, T> zSetOperations;

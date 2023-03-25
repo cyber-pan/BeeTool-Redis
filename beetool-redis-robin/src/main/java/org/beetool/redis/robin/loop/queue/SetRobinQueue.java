@@ -11,7 +11,7 @@ import org.springframework.data.redis.core.SetOperations;
  * @Description
  * @Date 2023/3/24 16:52
  */
-public class SetRobinQueue<T> extends RobinQueue<T> {
+public abstract class SetRobinQueue<T> extends RobinQueue<T> {
     /**
      * set操作工具
      */

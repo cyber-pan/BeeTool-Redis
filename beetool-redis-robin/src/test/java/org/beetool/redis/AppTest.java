@@ -1,15 +1,21 @@
 package org.beetool.redis;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.beetool.redis.robin.loop.RobinIntegerLoop;
 import org.beetool.redis.robin.loop.RobinLongLoop;
 import org.beetool.redis.robin.loop.RobinStringLoop;
+import org.beetool.redis.robin.loop.queue.ZetRobinQueue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Unit test for simple App.
@@ -56,7 +62,6 @@ public class AppTest {
     }
 
 
-
     @Test
     public void integerLoopTest() {
         RobinIntegerLoop loop = new RobinIntegerLoop("integer", factory);
@@ -66,4 +71,20 @@ public class AppTest {
         result = loop.peekMax();
         System.out.println();
     }
+
+
+    @Test
+    public void ManLoopTest() {
+        Man man = new Man("cyber", 29);
+        RobinManLoop loop = new RobinManLoop("man", factory);
+        //loop.add(man, 80D);
+        Man result = loop.peekMax();
+        result = loop.peekMaxIncrDelta(1.0D);
+        result = loop.peekMax();
+        System.out.println();
+    }
+
+
+
+
 }
