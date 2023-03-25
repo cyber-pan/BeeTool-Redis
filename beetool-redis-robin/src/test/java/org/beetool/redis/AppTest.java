@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -18,11 +19,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = App.class)
 public class AppTest {
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisConnectionFactory factory;
 
     @Test
     public void shouldAnswerWithTrue() {
-        RobinLongLoop robinLongLoop = new RobinLongLoop("name", redisTemplate);
+        RobinLongLoop robinLongLoop = new RobinLongLoop("name", factory);
         robinLongLoop.add(1L, 2);
         robinLongLoop.incrScore(1L, 1D);
         Double score = robinLongLoop.getScore(1L);
@@ -37,7 +38,7 @@ public class AppTest {
 
     @Test
     public void zsetTest() {
-        RobinStringLoop robinStringLoop = new RobinStringLoop("ruby1", redisTemplate);
+        RobinStringLoop robinStringLoop = new RobinStringLoop("ruby1", factory);
 
         //robinLongLoop.add(2L, 2D);
         //robinLongLoop.add(3L, 3D);

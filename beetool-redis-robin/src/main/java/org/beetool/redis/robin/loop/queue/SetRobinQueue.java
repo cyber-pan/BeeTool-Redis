@@ -1,5 +1,7 @@
 package org.beetool.redis.robin.loop.queue;
 
+import org.beetool.redis.robin.loop.queue.model.RobinQueue;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SetOperations;
 
@@ -19,11 +21,11 @@ public class SetRobinQueue<T> extends RobinQueue<T> {
      * 初始化
      *
      * @param name
-     * @param redisTemplate
+     * @param factory
      */
-    public SetRobinQueue(String name, RedisTemplate<String, T> redisTemplate) {
-        super(name,redisTemplate);
-        operations = redisTemplate.opsForSet();
+    public SetRobinQueue(String name, RedisConnectionFactory factory) {
+        super(name,factory);
+        operations = super.getRedisTemplate().opsForSet();
     }
 
 

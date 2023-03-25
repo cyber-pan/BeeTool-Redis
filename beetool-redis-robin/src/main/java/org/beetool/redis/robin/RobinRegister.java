@@ -9,8 +9,6 @@ import org.springframework.data.redis.core.RedisTemplate;
  * @Date 2023/3/24 16:14
  */
 public class RobinRegister {
-
-
     public static void main(String[] args) {
         RedisTemplate redisTemplate;
     }

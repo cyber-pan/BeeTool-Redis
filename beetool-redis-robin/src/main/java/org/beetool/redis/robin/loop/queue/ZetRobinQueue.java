@@ -1,6 +1,7 @@
 package org.beetool.redis.robin.loop.queue;
 
-import org.springframework.data.redis.core.RedisTemplate;
+import org.beetool.redis.robin.loop.queue.model.RobinQueue;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.ZSetOperations;
 
 import java.util.ArrayList;
@@ -18,9 +19,9 @@ public class ZetRobinQueue<T> extends RobinQueue<T> {
 
     ZSetOperations<String, T> zSetOperations;
 
-    public ZetRobinQueue(String name, RedisTemplate<String, T> redisTemplate) {
-        super(name, redisTemplate);
-        zSetOperations = redisTemplate.opsForZSet();
+    public ZetRobinQueue(String name,  RedisConnectionFactory factory) {
+        super(name, factory);
+        this.zSetOperations = super.getRedisTemplate().opsForZSet();
     }
 
     @Override

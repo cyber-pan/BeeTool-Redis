@@ -1,4 +1,4 @@
-package org.beetool.redis.robin.loop.queue;
+package org.beetool.redis.robin.loop.queue.model.connector.serializer;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.ParserConfig;

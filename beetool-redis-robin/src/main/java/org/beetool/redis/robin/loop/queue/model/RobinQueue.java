@@ -1,10 +1,13 @@
-package org.beetool.redis.robin.loop.queue;
+package org.beetool.redis.robin.loop.queue.model;
 
 
+import org.beetool.redis.robin.loop.queue.model.connector.RobinConnector;
+import org.beetool.redis.robin.loop.queue.model.connector.serializer.FastJson2JsonRedisParamSerializer;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
-import org.springframework.data.redis.serializer.*;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.scripting.support.ResourceScriptSource;
 
 import java.lang.reflect.ParameterizedType;
@@ -18,17 +21,14 @@ import java.util.List;
  */
 
 
-public abstract class RobinQueue<T> {
+public abstract class RobinQueue<T> extends RobinConnector<T> {
 
-    private RedisTemplate<String, T> redisTemplate;
 
     private String name;
 
-    RobinQueue(String name, RedisTemplate<String, T> redisTemplate) {
+    public RobinQueue(String name, RedisConnectionFactory factory) {
+        super(factory);
         this.name = name;
-        this.redisTemplate = redisTemplate;
-        this.redisTemplate.setKeySerializer(new StringRedisSerializer());
-        this.redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(Object.class));
     }
 
     public String getQueueName() {
@@ -37,7 +37,7 @@ public abstract class RobinQueue<T> {
 
 
     public RedisTemplate<String, T> getRedisTemplate() {
-        return this.redisTemplate;
+        return super.getRedisTemplate();
     }
 
     /**
@@ -45,14 +45,14 @@ public abstract class RobinQueue<T> {
      *
      * @return
      */
-    abstract Long getCurrentQueueSize();
+    public abstract Long getCurrentQueueSize();
 
     /**
      * 推出的
      *
      * @return
      */
-    abstract T pop();
+    public abstract T pop();
 
     /**
      * 获取的T
@@ -65,7 +65,7 @@ public abstract class RobinQueue<T> {
 
     public T executeScript(List<String> keys, String path, Object... args) {
         return getRedisTemplate().execute(getDefaultRedisScript(path), new FastJson2JsonRedisParamSerializer(Object.class),
-                (RedisSerializer<T>) this.redisTemplate.getValueSerializer(), keys, args);
+                (RedisSerializer<T>) super.getRedisTemplate().getValueSerializer(), keys, args);
     }
 
     private DefaultRedisScript<T> getDefaultRedisScript(String path) {

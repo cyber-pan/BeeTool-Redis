@@ -1,8 +1,9 @@
 package org.beetool.redis.robin.loop.queue.model;
 
 import lombok.Getter;
+import org.beetool.redis.robin.loop.queue.model.connector.RobinConnector;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.Map;
 
@@ -12,7 +13,7 @@ import java.util.Map;
  * @Description
  * @Date 2023/3/24 17:50
  */
-public class RedisHashObject<T, K> {
+public class RedisHashObject<T, K> extends RobinConnector<T> {
 
     @Getter
     private String name;
@@ -20,9 +21,10 @@ public class RedisHashObject<T, K> {
     private HashOperations<String, T, K> hashOperations;
 
 
-    public RedisHashObject(String name, RedisTemplate<String, T> redisTemplate) {
+    public RedisHashObject(String name, RedisConnectionFactory factory) {
+        super(factory);
         this.name = name;
-        this.hashOperations = redisTemplate.opsForHash();
+        this.hashOperations = super.getRedisTemplate().opsForHash();
     }
 
     public Boolean hasAttribute(T attributeName) {
@@ -61,8 +63,8 @@ public class RedisHashObject<T, K> {
         return hashOperations.lengthOfValue(getName(), t);
     }
 
-    public Long deleteByKey(T t){
-        return hashOperations.delete(getName(),t);
+    public Long deleteByKey(T t) {
+        return hashOperations.delete(getName(), t);
     }
 
 }
