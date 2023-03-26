@@ -1,6 +1,8 @@
 package org.beetool.redis;
 
 import lombok.extern.slf4j.Slf4j;
+import org.beetool.redis.bean.Man;
+import org.beetool.redis.bean.RobinManLoop;
 import org.beetool.redis.robin.loop.RobinIntegerLoop;
 import org.beetool.redis.robin.loop.RobinLongLoop;
 import org.beetool.redis.robin.loop.RobinStringLoop;
@@ -17,7 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = App.class)
-public class AppTest {
+public class RobinLoopTest {
     @Autowired
     private RedisConnectionFactory factory;
 

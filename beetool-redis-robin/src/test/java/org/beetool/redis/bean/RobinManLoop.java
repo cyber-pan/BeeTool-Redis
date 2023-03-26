@@ -1,4 +1,4 @@
-package org.beetool.redis;
+package org.beetool.redis.bean;
 
 import org.beetool.redis.robin.loop.queue.ZetRobinQueue;
 import org.springframework.data.redis.connection.RedisConnectionFactory;

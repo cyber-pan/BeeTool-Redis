@@ -1,8 +1,6 @@
-package org.beetool.redis;
+package org.beetool.redis.bean;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
 import lombok.Data;
-import lombok.Setter;
 
 
 @Data
