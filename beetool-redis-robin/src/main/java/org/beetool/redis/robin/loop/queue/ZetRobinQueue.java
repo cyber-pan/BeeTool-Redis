@@ -143,15 +143,16 @@ public abstract class ZetRobinQueue<T> extends RobinQueue<T> {
     }
 
     /**
-     *  是否超过限制
+     * 加(减)delta之后数在[lowLimit,highLimit],否则失败
      * @param t
      * @param delta
-     * @param limit
+     * @param lowLimit  最低限制
+     * @param highLimit 最高限制
      * @return
      */
-    public Double addScoreWithLimitScore(T t, Double delta, Double limit) {
+    public Double incrScoreWithLimitScore(T t, Double delta, Double lowLimit,Double highLimit) {
         FastJson2JsonRedisParamSerializer<T> serializer = new FastJson2JsonRedisParamSerializer<>(getTClass());
-        return executeDoubleScript(new ArrayList<>(Arrays.asList(getQueueName())), "redis/ZetRobinQueue_addScoreWithLimitScore.lua", new String(serializer.serialize(t)), delta, limit);
+        return executeDoubleScript(new ArrayList<>(Arrays.asList(getQueueName())), "redis/ZetRobinQueue_addScoreWithLimitScore.lua", new String(serializer.serialize(t)), delta, lowLimit,highLimit);
     }
 
 

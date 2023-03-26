@@ -1,21 +1,15 @@
 package org.beetool.redis;
 
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.beetool.redis.robin.loop.RobinIntegerLoop;
 import org.beetool.redis.robin.loop.RobinLongLoop;
 import org.beetool.redis.robin.loop.RobinStringLoop;
-import org.beetool.redis.robin.loop.queue.ZetRobinQueue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Unit test for simple App.
@@ -67,10 +61,15 @@ public class AppTest {
         RobinIntegerLoop loop = new RobinIntegerLoop("integer", factory);
         loop.add(999, 80D);
         Integer result = loop.peekMax();
-        result = loop.peekMaxIncrDelta(1.0D);
-        Double score = loop.addScoreWithLimitScore(999,3.0D,90.0D);
-         score = loop.addScoreWithLimitScore(999,89.0D,90.0D);
+        result = loop.peekMaxIncrDelta(1.0D);  //81
 
+
+        Double score = loop.incrScoreWithLimitScore(999, 3.0D, 0D, 90.0D);//84
+        score = loop.incrScoreWithLimitScore(999, 89.0D, 0D, 90.0D);//null
+        score = loop.incrScoreWithLimitScore(999, -4.0D, 0D, 90.0D);//80
+        score = loop.incrScoreWithLimitScore(999, -90.0D, 0D, 90.0D);//null
+        score = loop.incrScoreWithLimitScore(999, 10.0D, 0D, 90.0D);//90
+        score = loop.incrScoreWithLimitScore(999, -90.0D, 0D, 90.0D);//0
 
         result = loop.peekMax();
         System.out.println();
@@ -87,8 +86,6 @@ public class AppTest {
         result = loop.peekMax();
         System.out.println();
     }
-
-
 
 
 }
