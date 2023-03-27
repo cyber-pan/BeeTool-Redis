@@ -2,7 +2,6 @@ package org.beetool.redis.robin.loop;
 
 import org.beetool.redis.robin.loop.queue.ZetRobinQueue;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
 
 /**
  * @author cyber.pan
