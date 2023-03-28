@@ -17,7 +17,6 @@ public abstract class RedisHashObjectHelper<T, K> extends RobinConnector<T> {
 
     private HashOperations<String, T, K> hashOperations;
 
-
     public RedisHashObjectHelper(RedisConnectionFactory factory) {
         super(factory);
         this.hashOperations = super.getRedisTemplate().opsForHash();

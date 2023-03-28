@@ -64,7 +64,7 @@ public abstract class RobinExpireThisOption<T> extends RobinConnector<T> {
      * @return
      */
     public Boolean expireThisAt(Date date) {
-        return expireGlobalKeyAt(getQueueName(), date);
+        return this.expireGlobalKeyAt(getQueueName(), date);
     }
 
 }
