@@ -30,9 +30,9 @@ public class HashLoopTest {
     @Test
     public void hashTest() {
         RedisHashObjectHelper<Long, Man> hashObjectHelper = new ManHashObject(factory);
-        hashObjectHelper.add("kkkk",1024L,new Man("cyber",29));
-        Long size = hashObjectHelper.size("map");
-        Man man = hashObjectHelper.getAttributeByKey("map",1024L);
+        hashObjectHelper.add("kkkk", 1024L, new Man("cyber", 29));
+        Long size = hashObjectHelper.size("kkkk");
+        Man man = hashObjectHelper.getAttributeByKey("kkkk", 1024L);
         System.out.println();
     }
 

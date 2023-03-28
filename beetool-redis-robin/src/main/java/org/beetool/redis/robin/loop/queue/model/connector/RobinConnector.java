@@ -30,7 +30,6 @@ public abstract class RobinConnector<T> {
         this.init(factory);
     }
 
-
     public RedisTemplate<String, T> getRedisTemplate() {
         return redisTemplate;
     }
