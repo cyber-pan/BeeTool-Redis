@@ -20,7 +20,7 @@ public class FileTest {
 
     @Test
     public void fileTest() {
-        ClassPathResource classPathResource = new ClassPathResource("redis/ZetRobinQueue_addScoreWithLimitScore.lua");
+        ClassPathResource classPathResource = new ClassPathResource("redis/ZetRobinQueue_peekMaxIncrDelta.lua");
         ClassPathResource classPathResource2 = new ClassPathResource("application.properties");
 
         Boolean bool = classPathResource.exists();
