@@ -1,7 +1,7 @@
 package org.beetool.redis.robin.loop.queue.model;
 
 
-import org.beetool.redis.robin.loop.queue.model.connector.RobinConnector;
+import org.beetool.redis.robin.loop.queue.model.connector.RobinExpireThisOption;
 import org.beetool.redis.robin.loop.queue.model.connector.serializer.FastJson2JsonRedisParamSerializer;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -20,20 +20,12 @@ import java.util.List;
  */
 
 
-public abstract class RobinQueue<T> extends RobinConnector<T> {
-
-
-    private String name;
+public abstract class RobinQueue<T> extends RobinExpireThisOption<T> {
 
     public RobinQueue(String name, RedisConnectionFactory factory) {
-        super(factory);
-        this.name = name;
-    }
+        super(name, factory);
 
-    public String getQueueName() {
-        return this.name;
     }
-
 
     public RedisTemplate<String, T> getRedisTemplate() {
         return super.getRedisTemplate();
@@ -68,6 +60,7 @@ public abstract class RobinQueue<T> extends RobinConnector<T> {
 
     /**
      * 执行返回bool
+     *
      * @param keys
      * @param path
      * @param args
@@ -77,8 +70,10 @@ public abstract class RobinQueue<T> extends RobinConnector<T> {
         return getRedisTemplate().execute(getBoolRedisScript(path), new FastJson2JsonRedisParamSerializer(),
                 new FastJson2JsonRedisParamSerializer(Boolean.class), keys, args);
     }
+
     /**
      * 拉取脚本
+     *
      * @param path
      * @return
      */
@@ -88,8 +83,10 @@ public abstract class RobinQueue<T> extends RobinConnector<T> {
         redisScript.setResultType(getTClass());
         return redisScript;
     }
+
     /**
      * 返回的double
+     *
      * @param keys
      * @param path
      * @param args
@@ -99,8 +96,10 @@ public abstract class RobinQueue<T> extends RobinConnector<T> {
         return getRedisTemplate().execute(getDoubleRedisScript(path), new FastJson2JsonRedisParamSerializer(),
                 new FastJson2JsonRedisParamSerializer(Double.class), keys, args);
     }
+
     /**
      * 返回bool的脚本
+     *
      * @param path
      * @return
      */
@@ -113,6 +112,7 @@ public abstract class RobinQueue<T> extends RobinConnector<T> {
 
     /**
      * 返回bool的脚本
+     *
      * @param path
      * @return
      */
