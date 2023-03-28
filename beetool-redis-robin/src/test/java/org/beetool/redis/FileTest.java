@@ -16,8 +16,8 @@ import java.io.IOException;
  * @Date 2023/3/28 12:17
  */
 @Slf4j
-//@RunWith(SpringRunner.class)
-//@SpringBootTest(classes = App.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = App.class)
 public class FileTest {
 
     @Test

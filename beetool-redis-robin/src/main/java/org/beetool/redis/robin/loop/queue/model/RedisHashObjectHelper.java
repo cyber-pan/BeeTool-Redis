@@ -1,6 +1,5 @@
 package org.beetool.redis.robin.loop.queue.model;
 
-import lombok.Data;
 import org.beetool.redis.robin.loop.queue.model.connector.RobinConnector;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.HashOperations;
