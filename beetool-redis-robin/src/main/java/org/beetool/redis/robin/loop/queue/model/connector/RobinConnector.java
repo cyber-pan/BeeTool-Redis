@@ -42,14 +42,8 @@ public abstract class RobinConnector<T> {
         //把工厂设置给Template
         redisTemplate.setConnectionFactory(factory);
         redisTemplate.setKeySerializer(new StringRedisSerializer());
-        this.setValueSerializers(new FastJson2JsonRedisParamSerializer<T>(getTClass()));
+        redisTemplate.setValueSerializer(new FastJson2JsonRedisParamSerializer<T>(getTClass()));
     }
-
-    public void setValueSerializers(RedisSerializer valueSerializer) {
-        redisTemplate.setValueSerializer(valueSerializer);
-        redisTemplate.afterPropertiesSet();
-    }
-
     public Boolean existGlobalKey(String globalKey) {
         return redisTemplate.hasKey(globalKey);
     }
