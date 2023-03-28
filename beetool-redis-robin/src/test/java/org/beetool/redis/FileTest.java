@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
+
 /**
  * @author cyber.pan
  * @Classname FileTest
@@ -14,16 +16,16 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @Date 2023/3/28 12:17
  */
 @Slf4j
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = App.class)
+//@RunWith(SpringRunner.class)
+//@SpringBootTest(classes = App.class)
 public class FileTest {
 
     @Test
-    public void fileTest() {
-        ClassPathResource classPathResource = new ClassPathResource("redis/ZetRobinQueue_peekMaxIncrDelta.lua");
+    public void fileTest() throws IOException {
+        //ClassPathResource classPathResource = new ClassPathResource("redis/ZetRobinQueue_peekMaxIncrDelta.lua");
         ClassPathResource classPathResource2 = new ClassPathResource("application.properties");
 
-        Boolean bool = classPathResource.exists();
+       //classPathResource.getInputStream();
         Boolean bool2 = classPathResource2.exists();
         System.out.println();
     }
