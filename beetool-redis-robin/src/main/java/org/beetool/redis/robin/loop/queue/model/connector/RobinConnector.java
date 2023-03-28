@@ -1,10 +1,8 @@
 package org.beetool.redis.robin.loop.queue.model.connector;
 
-import lombok.Getter;
 import org.beetool.redis.robin.loop.queue.model.connector.serializer.FastJson2JsonRedisParamSerializer;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.lang.reflect.ParameterizedType;
@@ -43,7 +41,9 @@ public abstract class RobinConnector<T> {
         redisTemplate.setConnectionFactory(factory);
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new FastJson2JsonRedisParamSerializer<T>(getTClass()));
+        redisTemplate.afterPropertiesSet();
     }
+
     public Boolean existGlobalKey(String globalKey) {
         return redisTemplate.hasKey(globalKey);
     }
@@ -61,6 +61,7 @@ public abstract class RobinConnector<T> {
     public Boolean expireGlobalKeyAt(String globalKey, Date date) {
         return redisTemplate.expireAt(globalKey, date);
     }
+
     /**
      * 获取T的class
      *
