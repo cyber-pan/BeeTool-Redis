@@ -23,7 +23,6 @@ public abstract class RobinQueue<T> extends RobinExpireThisOption<T> {
 
     public RobinQueue(String name, RedisConnectionFactory factory) {
         super(name, factory);
-
     }
 
     /**
