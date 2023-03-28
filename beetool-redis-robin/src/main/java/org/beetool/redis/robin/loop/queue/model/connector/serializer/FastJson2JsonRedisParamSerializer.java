@@ -80,7 +80,7 @@ public class FastJson2JsonRedisParamSerializer<T> implements RedisSerializer<T> 
             return null;
         }
         String str = new String(bytes, DEFAULT_CHARSET);
-        return Optional.ofNullable(clazz).map(c -> JSONUtil.isJson(str) ? JSON.parseObject(str, c) : (T) str)
+        return Optional.ofNullable(clazz).map(c -> JSON.parseObject(str, c))
                 .orElse((T) str);
     }
 

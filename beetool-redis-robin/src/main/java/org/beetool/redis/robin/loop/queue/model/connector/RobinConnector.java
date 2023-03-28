@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
  * 的序列化
  */
 
-public abstract class RobinConnector<T> {
+public class RobinConnector<T> {
 
     private RedisTemplate<String, T> redisTemplate;
 
@@ -40,6 +40,10 @@ public abstract class RobinConnector<T> {
         redisTemplate.setConnectionFactory(factory);
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new FastJson2JsonRedisParamSerializer<T>(getTClass()));
+        refreshTemplate();
+    }
+
+    public void refreshTemplate() {
         redisTemplate.afterPropertiesSet();
     }
 
@@ -55,7 +59,6 @@ public abstract class RobinConnector<T> {
     public Boolean expireGlobalKey(String globalKey, Long time, TimeUnit unit) {
         return redisTemplate.expire(globalKey, time, unit);
     }
-
 
     public Boolean expireGlobalKeyAt(String globalKey, Date date) {
         return redisTemplate.expireAt(globalKey, date);

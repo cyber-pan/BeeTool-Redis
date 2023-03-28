@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
  * @Description
  * @Date 2023/3/27 22:07
  */
-public abstract class RobinExpireThisOption<T> extends RobinConnector<T> {
+public  class RobinExpireThisOption<T> extends RobinConnector<T> {
 
     /**
      * key

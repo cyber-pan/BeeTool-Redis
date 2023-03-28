@@ -23,7 +23,7 @@ public abstract class RedisHashObjectHelper<T, K> extends RobinConnector<T> {
         super(factory);
         super.getRedisTemplate().setHashKeySerializer(new FastJson2JsonRedisParamSerializer<T>(getTClass()));
         super.getRedisTemplate().setHashValueSerializer(new FastJson2JsonRedisParamSerializer<K>(getValueClass()));
-        super.getRedisTemplate().afterPropertiesSet();
+        super.refreshTemplate();
         this.hashOperations = super.getRedisTemplate().opsForHash();
     }
 
