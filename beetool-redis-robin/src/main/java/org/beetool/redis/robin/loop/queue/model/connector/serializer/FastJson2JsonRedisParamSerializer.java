@@ -36,7 +36,7 @@ public class FastJson2JsonRedisParamSerializer<T> implements RedisSerializer<T> 
     /**
      * 基础类型参数
      */
-    private static final String[] BASE_CLASS_NAMES = {"java.lang.Long", "java.lang.Integer", "java.lang.Double", "java.lang.String"};
+    private static final String[] BASE_CLASS_NAMES = {"java.lang.Long", "java.lang.Integer", "java.lang.Double", "java.lang.String", "java.lang.Short"};
 
     private Class<T> clazz;
 
