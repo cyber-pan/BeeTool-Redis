@@ -80,13 +80,19 @@ public class FastJson2JsonRedisParamSerializer<T> implements RedisSerializer<T> 
             return null;
         }
         String str = new String(bytes, DEFAULT_CHARSET);
-        return Optional.ofNullable(clazz).map(v -> JSON.parseObject(str, v)).orElse((T) str);
+        return Optional.ofNullable(clazz).map(c -> {
+            if (str.startsWith("{") || str.startsWith("[")) {
+                return JSON.parseObject(str, c);
+            }
+            return (T) str;
+        }).orElse((T) str);
     }
 
     public void setObjectMapper(ObjectMapper objectMapper) {
         Assert.notNull(objectMapper, "'objectMapper' must not be null");
         this.objectMapper = objectMapper;
     }
+
     protected JavaType getJavaType(Class<?> clazz) {
         return TypeFactory.defaultInstance().constructType(clazz);
     }

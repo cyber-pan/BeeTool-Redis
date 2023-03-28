@@ -49,7 +49,7 @@ public abstract class RobinQueue<T> extends RobinExpireThisOption<T> {
      */
     public T executeScript(List<String> keys, String path, Object... args) {
         return getRedisTemplate().execute(getDefaultRedisScript(path), new FastJson2JsonRedisParamSerializer(),
-                (RedisSerializer<T>) this.getRedisTemplate().getValueSerializer(), keys, args);
+                (RedisSerializer<T>) getRedisTemplate().getValueSerializer(), keys, args);
     }
 
     /**
