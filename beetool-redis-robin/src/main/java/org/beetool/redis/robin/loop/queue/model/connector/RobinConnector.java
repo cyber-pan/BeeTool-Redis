@@ -26,13 +26,16 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class RobinConnector<T> {
 
-    @Getter
     private RedisTemplate<String, T> redisTemplate;
 
     protected RobinConnector(RedisConnectionFactory factory) {
         this.init(factory);
     }
 
+
+    public RedisTemplate<String, T> getRedisTemplate() {
+        return redisTemplate;
+    }
 
     void init(RedisConnectionFactory factory) {
         redisTemplate = new RedisTemplate<>();

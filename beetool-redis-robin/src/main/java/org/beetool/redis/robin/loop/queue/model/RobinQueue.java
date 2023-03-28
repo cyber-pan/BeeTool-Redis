@@ -5,7 +5,6 @@ import org.beetool.redis.robin.loop.queue.model.connector.RobinExpireThisOption;
 import org.beetool.redis.robin.loop.queue.model.connector.serializer.FastJson2JsonRedisParamSerializer;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.scripting.support.ResourceScriptSource;
@@ -25,10 +24,6 @@ public abstract class RobinQueue<T> extends RobinExpireThisOption<T> {
     public RobinQueue(String name, RedisConnectionFactory factory) {
         super(name, factory);
 
-    }
-
-    public RedisTemplate<String, T> getRedisTemplate() {
-        return super.getRedisTemplate();
     }
 
     /**
@@ -55,7 +50,7 @@ public abstract class RobinQueue<T> extends RobinExpireThisOption<T> {
      */
     public T executeScript(List<String> keys, String path, Object... args) {
         return getRedisTemplate().execute(getDefaultRedisScript(path), new FastJson2JsonRedisParamSerializer(),
-                (RedisSerializer<T>) super.getRedisTemplate().getValueSerializer(), keys, args);
+                (RedisSerializer<T>) this.getRedisTemplate().getValueSerializer(), keys, args);
     }
 
     /**
