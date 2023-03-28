@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * 基于fastjson的序列化
@@ -20,10 +21,11 @@ import java.util.Arrays;
  * 1.key的序列化；
  * 2.value的序列化；
  * 3.luna脚本函数里面参数的序列化；
- *
+ * <p>
  * 反序列化有两个地方：
  * 1.value的反序列化；
  * 2.luna脚本执行结果的序列化；
+ *
  * @param <T>
  */
 public class FastJson2JsonRedisParamSerializer<T> implements RedisSerializer<T> {
@@ -78,19 +80,13 @@ public class FastJson2JsonRedisParamSerializer<T> implements RedisSerializer<T> 
             return null;
         }
         String str = new String(bytes, DEFAULT_CHARSET);
-        if (clazz != null) {
-            return JSON.parseObject(str, clazz);
-        }
-        return (T) str;
-
-
+        return Optional.ofNullable(clazz).map(v -> JSON.parseObject(str, v)).orElse((T) str);
     }
 
     public void setObjectMapper(ObjectMapper objectMapper) {
         Assert.notNull(objectMapper, "'objectMapper' must not be null");
         this.objectMapper = objectMapper;
     }
-
     protected JavaType getJavaType(Class<?> clazz) {
         return TypeFactory.defaultInstance().constructType(clazz);
     }
