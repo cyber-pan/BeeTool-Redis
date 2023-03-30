@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  * @Description
  * @Date 2023/3/27 17:20
  */
-public class ListRobinQueue<T> extends RobinQueue<T> {
+public abstract class ListRobinQueue<T> extends RobinQueue<T> {
 
     private ListOperations<String, T> listOperations;
 

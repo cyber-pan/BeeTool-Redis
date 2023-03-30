@@ -1,11 +1,13 @@
 package org.beetool.redis;
 
 import lombok.extern.slf4j.Slf4j;
+import org.beetool.redis.bean.ListManQueue;
 import org.beetool.redis.bean.Man;
 import org.beetool.redis.bean.RobinManLoop;
 import org.beetool.redis.robin.loop.RobinIntegerLoop;
 import org.beetool.redis.robin.loop.RobinLongLoop;
 import org.beetool.redis.robin.loop.RobinStringLoop;
+import org.beetool.redis.robin.loop.queue.ListRobinQueue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +77,15 @@ public class RobinLoopTest {
 
         result = loop.peekMax();
         System.out.println();
+    }
+
+    @Test
+    public void listLoopQueueTest() {
+        ListRobinQueue<Man> listRobinQueue = new ListManQueue("list",factory);
+        listRobinQueue.leftPushIfPresent(new Man("cyber", 29));
+        System.out.println(listRobinQueue.getCurrentQueueSize());
+
+
     }
 
 
