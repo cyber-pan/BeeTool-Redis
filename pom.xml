@@ -12,6 +12,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>beetool-redis-robin</module>
+        <module>beetool-redis-sentry</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
